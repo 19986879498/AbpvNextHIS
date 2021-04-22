@@ -10,7 +10,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using NLog;
+using NLog.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -74,10 +77,15 @@ namespace HISInterface
         {
             var app = context.GetApplicationBuilder();
             var env = context.GetEnvironment();
+            ILoggerFactory loggerFactor =  context.GetLoggerFactory();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+            ////加载Nlog的nlog.config配置文件
+            //LogManager.LoadConfiguration("Config/nlog.config");
+            ////添加NLog
+            //loggerFactor.AddNLog(); 
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "HISInterface v1"));
             //  app.UseCors("CustomCorsPolicy");

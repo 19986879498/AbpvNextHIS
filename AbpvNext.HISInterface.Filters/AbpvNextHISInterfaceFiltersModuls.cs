@@ -1,4 +1,5 @@
-﻿using AbpvNext.HISInterface.Filters.Filters;
+﻿using AbpvNext.Application.HISInterface;
+using AbpvNext.HISInterface.Filters.Filters;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -7,6 +8,7 @@ using Volo.Abp.Modularity;
 namespace AbpvNext.HISInterface.Filters
 {
     [DependsOn(
+        typeof(AbpvNextApplicationModule)
         )]
     public class AbpvNextHISInterfaceFiltersModuls:AbpModule
     {

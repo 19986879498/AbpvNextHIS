@@ -159,12 +159,12 @@ namespace AbpvNext.Application.HISInterface.IDBFactory
         /// </summary>
         /// <param name="ds"></param>
         /// <returns></returns>
-        public IActionResult GetHosListGroup(DataSet ds);
+        public ObjectResult GetHosListGroup(DataSet ds);
         /// <summary>
         /// 获取微生物查询的分组集合
         /// </summary>
         /// <param name="arr"></param>
         /// <returns></returns>
-        public IActionResult GetWswList(ArrayList arr);
+        public ObjectResult GetWswList(ArrayList arr);
     }
 }

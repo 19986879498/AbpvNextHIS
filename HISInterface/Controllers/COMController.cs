@@ -35,14 +35,16 @@ namespace HISInterface.Controllers
         private readonly ICheckSqlConn conn;
         private readonly IZHYYDbMethods zhyyservice;
         private readonly IDbConnection dbConnection;
+        private readonly ILoggerService logger;
 
-        public COMController(AbpvNextHISInterfaceDbContext db, IConfiguration configuration, ICheckSqlConn Conn, IZHYYDbMethods zhyyservice, IDbConnection dbConnection)
+        public COMController(AbpvNextHISInterfaceDbContext db, IConfiguration configuration, ICheckSqlConn Conn, IZHYYDbMethods zhyyservice, IDbConnection dbConnection,ILoggerService logger)
         {
             this.db = db; 
             this.configuration = configuration;
             this.conn = Conn;
             this.zhyyservice = zhyyservice;
             this.dbConnection = dbConnection;
+            this.logger = logger;
         }
 
 
@@ -77,6 +79,7 @@ namespace HISInterface.Controllers
             this.UpdateSql("his");
             JObject job = zhyyservice.dynamicToJObject(Obj);
             Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n获取科室的医生排班情况的入参" + job.ToString());
+            this.logger.Info("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n获取科室的医生排班情况的入参" + job.ToString());
             #region  以前的写法  现在框架全新升级后  不需要这样写
             ////输入参数
             //List<OracleParameter> parems = new List<OracleParameter>();
@@ -97,8 +100,9 @@ namespace HISInterface.Controllers
 
             //var ds = Logic.Methods.SqlQuery(db, @"zjhis.PKG_ZHYY_MZ.PRC_OutpDoctorQuery", parems.ToArray()); 
             #endregion
-            IActionResult result = this.zhyyservice.BindService(db,"getDoctorScheduling", "COM", job);
+            ObjectResult result = (ObjectResult)this.zhyyservice.BindService(db,"getDoctorScheduling", "COM", job);
             //    Console.WriteLine("返回参数：\n"+JsonConvert.SerializeObject(obj));
+            this.logger.Info("返回参数：\n" + JsonConvert.SerializeObject(result.Value));
             return result;
         }
         #endregion
@@ -122,9 +126,11 @@ namespace HISInterface.Controllers
             this.UpdateSql("HIS");
             JObject job = Methods.dynamicToJObject(Obj);
             Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n获得医生某天排班序号的入参" + job.ToString());
+            this.logger.Info("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n获得医生某天排班序号的入参" + job.ToString());
             //框架写法
-            IActionResult obj = this.zhyyservice.BindService(db, "getDoctorAppointmentOrders", "COM",job);
+            ObjectResult obj = (ObjectResult)this.zhyyservice.BindService(db, "getDoctorAppointmentOrders", "COM",job);
             //  Console.WriteLine("返回参数:\n"+JsonConvert.SerializeObject(obj));
+            this.logger.Info("返回参数:\n" + JsonConvert.SerializeObject(obj.Value));
             return obj;
         }
         #endregion
@@ -142,8 +148,10 @@ namespace HISInterface.Controllers
             this.UpdateSql("HIS");
             //JObject job = Methods.dynamicToJObject(dynamic);
             Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n获取医院科目列表以及科室参数为空");
-            IActionResult obj = this.zhyyservice.BindService(db, "getAllDeptRoom", "COM", null);
+            this.logger.Info("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n获取医院科目列表以及科室参数为空");
+            ObjectResult obj = (ObjectResult)this.zhyyservice.BindService(db, "getAllDeptRoom", "COM", null);
             //  Console.WriteLine("返回参数："+JsonConvert.SerializeObject(obj));
+            this.logger.Info("返回参数:\n" + JsonConvert.SerializeObject(obj.Value));
             return obj;
         }
         #endregion
@@ -169,8 +177,10 @@ namespace HISInterface.Controllers
             UpdateSql("his");
             JObject j = Methods.dynamicToJObject(dynamic);
             Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n缴费查询的入参" + j.ToString());
-            IActionResult result = this.zhyyservice.BindService(db, "getHospitalItemList", "COM",j);
+            this.logger.Info("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n缴费查询的入参" + j.ToString());
+            ObjectResult result = (ObjectResult)this.zhyyservice.BindService(db, "getHospitalItemList", "COM",j);
             // Console.WriteLine("返回参数：\n"+JsonConvert.SerializeObject(Methods.GetResult(oralist, ds)));
+            this.logger.Info("返回参数：\n" + JsonConvert.SerializeObject(result.Value));
             return result;
         }
         #endregion
@@ -193,8 +203,10 @@ namespace HISInterface.Controllers
             this.UpdateSql("his");
             JObject jobj = Methods.dynamicToJObject(dynamic);
             Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n国家绩效考核指标查询接口的入参" + jobj.ToString());
-            IActionResult result = this.zhyyservice.BindServiceForSql(db,"QueryZBInfoByDate", "COM", jobj);
-            return result;
+            this.logger.Info("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n国家绩效考核指标查询接口的入参" + jobj.ToString());
+            ObjectResult obj = (ObjectResult)this.zhyyservice.BindServiceForSql(db,"QueryZBInfoByDate", "COM", jobj);
+            this.logger.Info("返回参数：\n" + JsonConvert.SerializeObject(obj.Value));
+            return obj;
         }
         #endregion
 
@@ -211,8 +223,9 @@ namespace HISInterface.Controllers
             //string date = Convert.ToDateTime(jobj.GetValue("date").ToString()).ToString("yyyy-MM-01");
             Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n住院人数统计无入参");
             // Console.WriteLine("返回参数：\n"+JsonConvert.SerializeObject(new JsonResult(new { msg = "查询成功！", data = arr, code = 200 })));
-            IActionResult result = this.zhyyservice.BindServiceForSql(db,"QueryInMainNum", "COM", null);
-            return result;
+            ObjectResult obj = (ObjectResult)this.zhyyservice.BindServiceForSql(db,"QueryInMainNum", "COM", null);
+            this.logger.Info("返回参数：\n" + JsonConvert.SerializeObject(obj.Value));
+            return obj;
         }
         #endregion
 
@@ -228,8 +241,9 @@ namespace HISInterface.Controllers
             //JObject jobj = Methods.dynamicToJObject(dynamic);
             //string date = Convert.ToDateTime(jobj.GetValue("date").ToString()).ToString("yyyy-MM-01");
             Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n挂号人数统计无入参");
-            IActionResult result = this.zhyyservice.BindServiceForSql(db,"QueryRegisterNum", "COM", null);
-            return result;
+            ObjectResult obj = (ObjectResult)this.zhyyservice.BindServiceForSql(db,"QueryRegisterNum", "COM", null);
+            this.logger.Info("返回参数：\n" + JsonConvert.SerializeObject(obj.Value));
+            return obj;
         }
         #endregion
 
@@ -255,6 +269,7 @@ namespace HISInterface.Controllers
             this.UpdateSql("his");
             JObject job = Methods.dynamicToJObject(Obj);
             Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n清单查询的入参" + job.ToString());
+            this.logger.Info("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n清单查询的入参" + job.ToString());
             #region 老版本
             ////输入参数
             //List<OracleParameter> parems = new List<OracleParameter>();
@@ -285,8 +300,9 @@ namespace HISInterface.Controllers
             //    return Methods.GetResult(parems, ds);
             //} 
             #endregion
-            IActionResult result = this.zhyyservice.BindService(db, "getHospitalListing", "COM", job);
-            return result;
+            ObjectResult obj = (ObjectResult)this.zhyyservice.BindService(db, "getHospitalListing", "COM", job);
+            this.logger.Info("返回参数：\n" + JsonConvert.SerializeObject(obj.Value));
+            return obj;
 
         }
         #endregion
@@ -309,8 +325,10 @@ namespace HISInterface.Controllers
             UpdateSql("his");
             JObject j = Methods.dynamicToJObject(dynamic);
             Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n挂号看诊状态查询接口的入参" + j.ToString());
-            IActionResult res = this.zhyyservice.BindService(db, "QueryRegStatus", "COM", j);
-            return res;
+            this.logger.Info("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n挂号看诊状态查询接口的入参" + j.ToString());
+            ObjectResult obj = (ObjectResult)this.zhyyservice.BindService(db, "QueryRegStatus", "COM", j);
+            this.logger.Info("返回参数：\n" + JsonConvert.SerializeObject(obj.Value));
+            return obj;
         }
         #endregion
 
@@ -334,6 +352,7 @@ namespace HISInterface.Controllers
             JObject jobj = Methods.dynamicToJObject(dynamic);
             //打印入参日志
             Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n住院患者基本信息查询接口的入参" + jobj.ToString());
+            this.logger.Info("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n住院患者基本信息查询接口的入参" + jobj.ToString());
             #region 老版本注释掉
             //string PatientNo = jobj.GetValue("hospitalNo").ToString();
             //string type = jobj.GetValue("type").ToString();
@@ -349,8 +368,9 @@ namespace HISInterface.Controllers
             //JsonResult js = new JsonResult(new { msg = "查询成功！", data = arr, code = 200 });
             ////Console.WriteLine("出参："+JsonConvert.SerializeObject(js.Value)); 
             #endregion
-            IActionResult result = this.zhyyservice.BindServiceForSql(db,"queryPatientInfoByHospitalNo", "COM", jobj);
-            return result;
+            ObjectResult obj = (ObjectResult)this.zhyyservice.BindServiceForSql(db,"queryPatientInfoByHospitalNo", "COM", jobj);
+            this.logger.Info("返回参数：\n" + JsonConvert.SerializeObject(obj.Value));
+            return obj;
         }
         #endregion
 
@@ -374,8 +394,10 @@ namespace HISInterface.Controllers
             this.UpdateSql("his");
             JObject job = Methods.dynamicToJObject(Obj);
             Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n获取科室未来15天的医生排班情况的入参" + job.ToString());
-            IActionResult result = this.zhyyservice.BindService(db, "getDoctorByWL15", "COM", job);
-            return result;
+            this.logger.Info("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n获取科室未来15天的医生排班情况的入参" + job.ToString());
+            ObjectResult obj = (ObjectResult)this.zhyyservice.BindService(db, "getDoctorByWL15", "COM", job);
+            this.logger.Info("返回参数：\n" + JsonConvert.SerializeObject(obj.Value));
+            return obj;
         }
         #endregion
 
@@ -399,7 +421,7 @@ namespace HISInterface.Controllers
             this.UpdateSql("PJWHIS");
             JObject j = Methods.dynamicToJObject(dy);
             Console.WriteLine(" 枝江市人民医院电子发票接口请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "电子发票请求入参" + j.ToString());
-
+            this.logger.Info(" 枝江市人民医院电子发票接口请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "电子发票请求入参" + j.ToString());
             #region 老版本可屏蔽
             //if (!j.ContainsKey("patientId"))
             //{
@@ -431,8 +453,9 @@ namespace HISInterface.Controllers
             //    return new JsonResult(new { msg = "没有找到任何电子发票的信息！", data = "查询结果为空", code = 404 });
             //} 
             #endregion
-            IActionResult result = this.zhyyservice.BindService(db, "QueryEinvoiceBill", "COM", j);
-            return result;
+            ObjectResult obj = (ObjectResult)this.zhyyservice.BindService(db, "QueryEinvoiceBill", "COM", j);
+            this.logger.Info("返回参数：\n" + JsonConvert.SerializeObject(obj.Value));
+            return obj;
         }
         #endregion
 
@@ -504,6 +527,7 @@ namespace HISInterface.Controllers
             UpdateSql("his");
             JObject j = Methods.dynamicToJObject(dynamic);
             Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n挂号订单查询的入参" + j.ToString());
+            this.logger.Info("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n挂号订单查询的入参" + j.ToString());
             #region 老版本屏蔽
             //List<OracleParameter> oralist = new List<OracleParameter>();
             //if (!j.ContainsKey("Page"))
@@ -535,8 +559,9 @@ namespace HISInterface.Controllers
 
             //var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.PRC_REGORDERQUERY", oralist.ToArray()); 
             #endregion
-            IActionResult result = this.zhyyservice.BindService(db, "GetRegOrderInfo", "COM", j);
-            return result;
+            ObjectResult obj = (ObjectResult)this.zhyyservice.BindService(db, "GetRegOrderInfo", "COM", j);
+            this.logger.Info("返回参数：\n" + JsonConvert.SerializeObject(obj.Value));
+            return obj;
         }
 
         #endregion
@@ -564,6 +589,7 @@ namespace HISInterface.Controllers
             UpdateSql("his");
             JObject j = Methods.dynamicToJObject(dynamic);
             Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n根据医生选择缴费查询的入参" + j.ToString());
+            this.logger.Info("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n根据医生选择缴费查询的入参" + j.ToString());
             #region 老版本注释
             //List<OracleParameter> oralist = new List<OracleParameter>();
             //try
@@ -596,8 +622,9 @@ namespace HISInterface.Controllers
             //int page = Convert.ToInt32(j.GetValue("Page", StringComparison.OrdinalIgnoreCase).ToString());
             //int pageSize = Convert.ToInt32(j.GetValue("pageSize", StringComparison.OrdinalIgnoreCase).ToString()); 
             #endregion
-            IActionResult res = this.zhyyservice.BindService(db,"getHospitalItemListByDoctor","COM",j) ;
-            return res;
+            ObjectResult obj = (ObjectResult)this.zhyyservice.BindService(db,"getHospitalItemListByDoctor","COM",j) ;
+            this.logger.Info("返回参数：\n" + JsonConvert.SerializeObject(obj.Value));
+            return obj;
         }
         #endregion
 
@@ -616,6 +643,7 @@ namespace HISInterface.Controllers
         {
             UpdateSql("his");
             Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n缴费明细查询的入参" + orderNo);
+            this.logger.Info("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n缴费明细查询的入参" + orderNo);
             JObject j = this.zhyyservice.dynamictoJobj(new { orderNo = orderNo });
             #region 老版本注释
             //List<OracleParameter> oralist = new List<OracleParameter>();
@@ -634,8 +662,9 @@ namespace HISInterface.Controllers
             //var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.PRC_GetHosItemDetail", oralist.ToArray()); 
             #endregion
 
-            IActionResult result = this.zhyyservice.BindService(db,"getHosItemDetail", "COM", j);
-            return result;
+            ObjectResult obj = (ObjectResult)this.zhyyservice.BindService(db,"getHosItemDetail", "COM", j);
+            this.logger.Info("返回参数：\n" + JsonConvert.SerializeObject(obj.Value));
+            return obj;
         }
         #endregion
 
@@ -652,6 +681,7 @@ namespace HISInterface.Controllers
         {
             UpdateSql("his");
             Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n缴费明细查询getHosItemNumList的入参start:" + start + "end:" + end);
+            this.logger.Info("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n缴费明细查询getHosItemNumList的入参start:" + start + "end:" + end);
             JObject j = this.zhyyservice.dynamictoJobj(new { start = start, end = end });
             #region 老版本注释
             //List<OracleParameter> oralist = new List<OracleParameter>();
@@ -670,8 +700,9 @@ namespace HISInterface.Controllers
 
             //var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.PRC_GetTotal", oralist.ToArray()); 
             #endregion
-            IActionResult result = this.zhyyservice.BindService(db,"getHosItemNumList", "COM", j);
-            return result;
+            ObjectResult obj = (ObjectResult)this.zhyyservice.BindService(db,"getHosItemNumList", "COM", j);
+            this.logger.Info("返回参数：\n" + JsonConvert.SerializeObject(obj.Value));
+            return obj;
         }
         #endregion
 
@@ -686,6 +717,7 @@ namespace HISInterface.Controllers
         {
             UpdateSql("his");
             Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n交易金额走势图接口getHosItemNumListByType的入参Type:" + Type);
+            this.logger.Info("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n交易金额走势图接口getHosItemNumListByType的入参Type:" + Type);
             JObject j = this.zhyyservice.dynamictoJobj(new { Type = Type });
             #region 老版本屏蔽
             //List<OracleParameter> oralist = new List<OracleParameter>();
@@ -704,8 +736,9 @@ namespace HISInterface.Controllers
 
             //var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.PRC_GetTotalByDate", oralist.ToArray()); 
             #endregion
-            IActionResult result = this.zhyyservice.BindService(db,"getHosItemNumListByType", "COM", j);
-            return result;
+            ObjectResult obj = (ObjectResult)this.zhyyservice.BindService(db,"getHosItemNumListByType", "COM", j);
+            this.logger.Info("返回参数：\n" + JsonConvert.SerializeObject(obj.Value));
+            return obj;
         }
         #endregion
 
@@ -720,9 +753,11 @@ namespace HISInterface.Controllers
         {
             UpdateSql("his");
             Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n交易金额走势图接口getHosItemNumListByYW的入参Type:" + Type);
+            this.logger.Info("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n交易金额走势图接口getHosItemNumListByYW的入参Type:" + Type);
             JObject j = this.zhyyservice.dynamictoJobj(new { Type = Type });
-            IActionResult res = this.zhyyservice.BindService(db,"getHosItemNumListByYW","COM",j);
-            return res;
+            ObjectResult obj = (ObjectResult)this.zhyyservice.BindService(db,"getHosItemNumListByYW","COM",j);
+            this.logger.Info("返回参数：\n" + JsonConvert.SerializeObject(obj.Value));
+            return obj;
         }
         #endregion
 
@@ -737,6 +772,7 @@ namespace HISInterface.Controllers
         {
             UpdateSql("his");
             Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n交易金额走势图接口GetyesterdayTotal");
+            this.logger.Info("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n交易金额走势图接口GetyesterdayTotal");
             #region 老版本屏蔽
             //List<OracleParameter> oralist = new List<OracleParameter>();
             ////try
@@ -754,8 +790,9 @@ namespace HISInterface.Controllers
             //var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.PRC_GetyesterdayTotal", oralist.ToArray()); 
             #endregion
 
-            IActionResult result = this.zhyyservice.BindService(db,"GetyesterdayTotal","COM",null);
-            return result;
+            ObjectResult obj = (ObjectResult)this.zhyyservice.BindService(db,"GetyesterdayTotal","COM",null);
+            this.logger.Info("返回参数：\n" + JsonConvert.SerializeObject(obj.Value));
+            return obj;
         }
         #endregion
 
@@ -811,6 +848,7 @@ namespace HISInterface.Controllers
             UpdateSql("his");
             JObject j = Methods.dynamicToJObject(dy);
             Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n根据条件获取医生排班列表的入参" + j.ToString());
+            this.logger.Info("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n根据条件获取医生排班列表的入参" + j.ToString());
             #region 老版本屏蔽
             //List<OracleParameter> oralist = new List<OracleParameter>();
             //try
@@ -829,8 +867,9 @@ namespace HISInterface.Controllers
             //var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.PRC_OutpDoctorQueryByDoc", oralist.ToArray());
             ////Console.WriteLine("返回参数:\n"+JsonConvert.SerializeObject(Methods.GetResult(oralist, ds))); 
             #endregion
-            IActionResult result = this.zhyyservice.BindService(db,"GetSchemaInfoByDoc", "COM",j);
-            return result;
+            ObjectResult obj = (ObjectResult)this.zhyyservice.BindService(db,"GetSchemaInfoByDoc", "COM",j);
+            this.logger.Info("返回参数：\n" + JsonConvert.SerializeObject(obj.Value));
+            return obj;
         }
         #endregion
 
@@ -860,6 +899,7 @@ namespace HISInterface.Controllers
             UpdateSql("his");
             JObject j = Methods.dynamicToJObject(dy);
             Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n查询住院预交金余额" + j.ToString());
+            this.logger.Info("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n查询住院预交金余额" + j.ToString());
             #region 老版本屏蔽
             //List<OracleParameter> oralist = new List<OracleParameter>();
             //try
@@ -881,9 +921,10 @@ namespace HISInterface.Controllers
             //var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.PRC_QUERYPREPAY", oralist.ToArray()); 
             #endregion
 
-            IActionResult result = this.zhyyservice.BindService(db,"QueryInPrepayInfo", "COM", j);
+            ObjectResult obj = (ObjectResult)this.zhyyservice.BindService(db,"QueryInPrepayInfo", "COM", j);
             //Console.WriteLine("返回参数:\n"+JsonConvert.SerializeObject(Methods.GetResult(oralist, ds)));
-            return result;
+            this.logger.Info("返回参数：\n" + JsonConvert.SerializeObject(obj.Value));
+            return obj;
         }
         #endregion
 
@@ -912,6 +953,7 @@ namespace HISInterface.Controllers
             UpdateSql("his");
             JObject j = Methods.dynamicToJObject(dy);
             Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n出诊变更信息查询" + j.ToString());
+            this.logger.Info("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n出诊变更信息查询" + j.ToString());
             #region 老版本屏蔽
             //List<OracleParameter> oralist = new List<OracleParameter>();
             //try
@@ -935,8 +977,9 @@ namespace HISInterface.Controllers
             ////Console.WriteLine("返回参数:\n"+JsonConvert.SerializeObject(Methods.GetResult(oralist, ds))); 
             #endregion
 
-            IActionResult result = this.zhyyservice.BindService(db,"QueryRegInfo", "COM", j);
-            return result;
+            ObjectResult obj = (ObjectResult)this.zhyyservice.BindService(db,"QueryRegInfo", "COM", j);
+            this.logger.Info("返回参数：\n" + JsonConvert.SerializeObject(obj.Value));
+            return obj;
         }
         #endregion
 
@@ -962,6 +1005,7 @@ namespace HISInterface.Controllers
         {
             UpdateSql("his");
             JObject j = Methods.dynamicToJObject(dy);
+            this.logger.Info("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n获取住院信息" + j.ToString());
             Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n获取住院信息" + j.ToString());
             #region 老版本替换
             //List<OracleParameter> oralist = new List<OracleParameter>();
@@ -984,8 +1028,9 @@ namespace HISInterface.Controllers
             ////Console.WriteLine("返回参数:\n"+JsonConvert.SerializeObject(Methods.GetResult(oralist, ds))); 
             #endregion
 
-            IActionResult result = this.zhyyservice.BindService(db,"QueryInMainInfo", "COM", j);
-            return result;
+            ObjectResult obj = (ObjectResult)this.zhyyservice.BindService(db,"QueryInMainInfo", "COM", j);
+            this.logger.Info("返回参数：\n" + JsonConvert.SerializeObject(obj.Value));
+            return obj;
         }
         #endregion
 
@@ -1004,6 +1049,7 @@ namespace HISInterface.Controllers
         {
             UpdateSql("his");
             Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n对账账单下载的接口GetyesterdayTotal");
+            this.logger.Info("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n对账账单下载的接口GetyesterdayTotal");
             JObject j = this.zhyyservice.dynamictoJobj(new { date=date,type=type,page=page,pageNum=pageNum});
             #region 老版本屏蔽
             //List<OracleParameter> oralist = new List<OracleParameter>();
@@ -1025,8 +1071,9 @@ namespace HISInterface.Controllers
 
             //var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.PRC_GETTOTALBYDateNew", oralist.ToArray()); 
             #endregion
-            IActionResult result = this.zhyyservice.BindService(db,"GetTotalByDate", "COM", j);
-            return result;
+            ObjectResult obj = (ObjectResult)this.zhyyservice.BindService(db,"GetTotalByDate", "COM", j);
+            this.logger.Info("返回参数：\n" + JsonConvert.SerializeObject(obj.Value));
+            return obj;
         }
         #endregion
 

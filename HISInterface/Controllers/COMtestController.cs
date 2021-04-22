@@ -51,6 +51,8 @@ namespace HISInterface.Controllers
         [HttpGet, Route("Get")]
         public IActionResult Get()
         {
+            object a = null;
+            a.ToString();
             return Content("测试");
         }
 

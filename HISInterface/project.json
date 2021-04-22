@@ -1,0 +1,11 @@
+{
+  "publishOptions": {
+    "include": [
+      "wwwroot",
+      "Views",
+      "appsettings.json",
+      "web.config",
+      "Config/nlog.config" //加上nlog配置文件
+    ]
+  }
+}

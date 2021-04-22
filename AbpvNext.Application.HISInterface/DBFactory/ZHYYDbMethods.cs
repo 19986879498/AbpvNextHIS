@@ -612,7 +612,7 @@ namespace AbpvNext.Application.HISInterface.DBFactory
             //parems.Add(GetOutput("ErrorMsg", (OracleDbType)126, 200));
             db = db == null ? dbContext : db;
             var ds = SqlQuery(db, myconfig.PROCEDURENAME, parems.ToArray());
-            IActionResult obj = GetResult(parems, ds, outparameters, outtypes);
+            ObjectResult obj = GetResult(parems, ds, outparameters, outtypes);
             if (myconfig.ISFY == "1")
             {
                 if (!jobj.ContainsKey("Page"))
@@ -747,11 +747,11 @@ namespace AbpvNext.Application.HISInterface.DBFactory
             COM_ZHYY_CONFIG myconfig = this.GetServiceConfigAsync(ServiceName, ServiceModule).Result;
             if (myconfig == null)
             {
-                return new JsonResult(new { msg = "请求失败", data = $"服务名为{ServiceModule}/{ServiceName}未配置不可使用！", code = "500" });
+                return new ObjectResult(new { msg = "请求失败", data = $"服务名为{ServiceModule}/{ServiceName}未配置不可使用！", code = "500" });
             }
             if (myconfig.VALID_FALG == "0")
             {
-                return new JsonResult(new { msg = "请求失败", data = $"{ServiceModule}/{ServiceName}该服务的已被作废！", code = "500" });
+                return new ObjectResult(new { msg = "请求失败", data = $"{ServiceModule}/{ServiceName}该服务的已被作废！", code = "500" });
             }
             string[] inparameters = myconfig.INPARAMETERNAMES == null ? new string[0] : myconfig.INPARAMETERNAMES.Split('|');
             string[] intypes = myconfig.INPARAMETERTYPES == null ? new string[0] : myconfig.INPARAMETERTYPES.Split('|');
@@ -771,7 +771,7 @@ namespace AbpvNext.Application.HISInterface.DBFactory
                 }
 
             }
-            IActionResult res = new JsonResult("");
+            ObjectResult res = new ObjectResult("");
             string Sql = string.Format(myconfig.PROCEDURENAME, objlist.ToArray());
             db = db == null ? dbContext : db;
             var dt = this.QuerySql(db, Sql);
@@ -782,15 +782,15 @@ namespace AbpvNext.Application.HISInterface.DBFactory
             }
             else
             {
-                res= new JsonResult(new { msg = $"查询成功！", data = arr, code = 200 });
+                res= new ObjectResult(new { msg = $"查询成功！", data = arr, code = 200 });
             }
             if (arr == null)
             {
-                res = new JsonResult(new { msg = $"{ServiceModule}/{ServiceName}没有找到如何数据的信息！", data = "查询结果为空", code = 404 });
+                res = new ObjectResult(new { msg = $"{ServiceModule}/{ServiceName}没有找到如何数据的信息！", data = "查询结果为空", code = 404 });
             }
             if (arr.Count == 0)
             {
-                res = new JsonResult(new { msg = $"{ServiceModule}/{ServiceName}没有找到如何数据的信息！", data = "查询结果为空", code = 404 });
+                res = new ObjectResult(new { msg = $"{ServiceModule}/{ServiceName}没有找到如何数据的信息！", data = "查询结果为空", code = 404 });
             }
             return res;
         }
@@ -802,12 +802,12 @@ namespace AbpvNext.Application.HISInterface.DBFactory
         /// </summary>
         /// <param name="ds"></param>
         /// <returns></returns>
-        public IActionResult GetHosListGroup(DataSet ds)
+        public ObjectResult GetHosListGroup(DataSet ds)
         {
             ArrayList arr = this.getJObject(ds);
             if (arr.Count == 0 || arr == null)
             {
-                return new JsonResult(new { msg = "没有找到患者详细的信息！", data = "查询结果为空", code = 404 });
+                return new ObjectResult(new { msg = "没有找到患者详细的信息！", data = "查询结果为空", code = 404 });
             }
             IEnumerable<JObject> j = JsonConvert.DeserializeObject<IEnumerable<JObject>>(JsonConvert.SerializeObject(arr));
             string[] ids = j.Select(s => s.GetValue("hospitalNo").ToString()).Distinct().ToArray();
@@ -817,7 +817,7 @@ namespace AbpvNext.Application.HISInterface.DBFactory
                 objects.Add(new JsonResult(new { hospitalName = j.FirstOrDefault(u => u.GetValue("hospitalNo").ToString() == item).GetValue("hospitalName").ToString(), patientName = j.FirstOrDefault(u => u.GetValue("hospitalNo").ToString() == item).GetValue("patientName").ToString(), hospitalNo = item.ToString(), inTime = j.FirstOrDefault(u => u.GetValue("hospitalNo").ToString() == item).GetValue("inTime").ToString(), outTime = j.FirstOrDefault(u => u.GetValue("hospitalNo").ToString() == item).GetValue("outTime").ToString(), detail = (from JObject x in j where x.GetValue("hospitalNo").ToString() == item select x).Select(s => new { titleName = s.GetValue("titleName").ToString(), unit = s.GetValue("unit").ToString(), num = s.GetValue("num").ToString(), price = s.GetValue("price").ToString() }) }).Value);
             }
             //  Console.WriteLine("返回参数：\n" + JsonConvert.SerializeObject(new JsonResult(new { msg = "查询成功！", data = objects, code = 200 })));
-            return new JsonResult(new { msg = "查询成功！", data = objects, code = 200 });
+            return new ObjectResult(new { msg = "查询成功！", data = objects, code = 200 });
         }
         #endregion
 
@@ -827,7 +827,7 @@ namespace AbpvNext.Application.HISInterface.DBFactory
         /// </summary>
         /// <param name="arr"></param>
         /// <returns></returns>
-        public IActionResult GetWswList(ArrayList arr)
+        public ObjectResult GetWswList(ArrayList arr)
         {
             IEnumerable<JObject> j = JsonConvert.DeserializeObject<IEnumerable<JObject>>(JsonConvert.SerializeObject(arr));
             string[] ids = j.Select(s => s.GetValue("itemName").ToString()).Distinct().ToArray();
@@ -836,7 +836,7 @@ namespace AbpvNext.Application.HISInterface.DBFactory
             {
                 objects.Add(new JsonResult(new { item = j.FirstOrDefault(u => u.GetValue("itemName").ToString() == item).GetValue("item").ToString(), itemName = item.ToString(), details = (from JObject x in j where x.GetValue("itemName").ToString() == item select x).Select(s => new { name = s.GetValue("name").ToString(), value = s.GetValue("value").ToString(), reference = s.GetValue("reference").ToString(), unit = s.GetValue("unit").ToString(), status = s.GetValue("status").ToString(), remark = s.GetValue("remark").ToString() }) }).Value);
             }
-            return new JsonResult(new { msg = "查询成功！", data = objects, code = 200 });
+            return new ObjectResult(new { msg = "查询成功！", data = objects, code = 200 });
         } 
         #endregion
 
