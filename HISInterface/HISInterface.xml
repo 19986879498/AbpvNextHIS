@@ -1,0 +1,1488 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HISInterface</name>
+    </assembly>
+    <members>
+        <member name="M:HISInterface.Controllers.COMController.Get">
+            <summary>
+            测试api
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMController.getDoctorScheduling(System.Object)">
+            <summary>
+            获取科室的医生排班情况PRC_OutpDoctorQuery
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "deptId":"科室id",
+                 "date":"时间",
+                 "hospitalId":""
+             }
+            </remarks>
+            <param name="Obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMController.getDoctorAppointmentOrders(System.Object)">
+            <summary>
+            获得医生某天排班序号PRC_OutpDoctorQueryBySortId
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "shemaId":"排班id"
+             }
+            </remarks>
+            <param name="Obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMController.getAllDeptRoom">
+            <summary>
+            获取医院科目列表以及科室PRC_OutpRegisterDeptQuery
+            PRC_OutpRegisterDeptQuery
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMController.getHospitalItemList(System.Object)">
+            <summary>
+            缴费查询getHospitalItemList
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "appointmentId":"门诊流水号",
+                 "bizType":"",
+                 "status":"状态"
+             }
+            </remarks>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMController.QueryZBInfoByDate(System.Object)">
+            <summary>
+            国家绩效考核指标查询接口
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "date":"查询时间"
+             }
+            </remarks>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMController.QueryInMainNum">
+            <summary>
+            住院人数统计
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMController.QueryRegisterNum">
+            <summary>
+            门诊挂号人数统计
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMController.getHospitalListing(System.Object)">
+            <summary>
+            清单查询GetQDForDate
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "hospitalNo":"门诊流水号",
+                 "type":"业务类别",
+                 "patientName":"患者姓名",
+                 "date":"查询时间"
+             }
+            </remarks>
+            <param name="Obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMController.QueryRegStatus(System.Object)">
+            <summary>
+            挂号看诊状态查询接口QueryRegStatus
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "CardNo":"患者卡号",
+             }
+            </remarks>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMController.queryPatientInfoByHospitalNo(System.Object)">
+            <summary>
+            住院患者基本信息查询接口
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "hospitalNo":"患者卡号",
+                 "type":"1 省直医院"
+             }
+            </remarks>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMController.getDoctorByWL15(System.Object)">
+            <summary>
+            获取科室未来15天的医生排班情况PRC_DoctorQueryToWL15
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "deptId":"科室id",
+                 "hospitalId":"医院id默认1"
+             }
+            </remarks>
+            <param name="Obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMController.QueryEinvoiceBill(System.Object)">
+            <summary>
+            挂号订单查询
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "patientId":"门诊卡号",
+                 "begin":"开始时间",
+                 "end":"结束时间"
+             }
+            </remarks>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMController.GetSmsInfo(System.Object)">
+            <summary>
+            手机短信接口
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "phone":"电话号码",
+                 "content":"短信内容"
+             }
+            </remarks>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMController.GetQRImage(System.String)">
+            <summary>
+            获取扫码支付二维码
+            </summary>
+            <param name="ClinicNo">门诊流水号</param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMController.GetRegOrderInfo(System.Object)">
+            <summary>
+            挂号订单查询PRC_REGORDERQUERY
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "registerNo":"门诊流水号",
+                "patientName":"患者姓名",
+                "Status":"交易状态 1 正交易 2 负交易",
+                "doctorName":"医生名称",
+                 "startTime":"开始时间",
+                "endTime":"结束时间",
+                "Page":"页数",
+                "pageSize":"每页行数"
+             }
+            </remarks>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMController.getHospitalItemListByDoctor(System.Object)">
+            <summary>
+            根据医生选择缴费查询PRC_GetHosItemListByDoc
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "recipeNo":"处方号",
+                "patientName":"患者姓名",
+                "Status":"缴费状态1 已缴费 0 待缴费 ",
+                "doctorName":"医生名称",
+                 "startTime":"开始时间",
+                "endTime":"结束时间"
+             }
+            </remarks>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMController.getHosItemDetail(System.String)">
+            <summary>
+            缴费明细查询PRC_GetHosItemDetail
+            </summary>
+            <param name="orderNo">订单号RecipeNo</param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMController.getHosItemNumList(System.String,System.String)">
+            <summary>
+            收入金额订单数量接口PRC_GetTotal
+            </summary>
+            <param name="start">开始时间</param>
+            <param name="end">结束时间</param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMController.getHosItemNumListByType(System.Int32)">
+            <summary>
+            交易金额走势图接口PRC_GetTotalByDate
+            </summary>
+            <param name="Type">查询类别1 查询 本月  2 查询本年</param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMController.getHosItemNumListByYW(System.Int32)">
+            <summary>
+            各业务交易金额接口PRC_GetTotalByType
+            </summary>
+            <param name="Type">查询类别1 查询 本月  2 查询本年</param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMController.GetyesterdayTotal">
+            <summary>
+            HIS账单接口PRC_GetyesterdayTotal(查询当天日期的前一天数据)------  备注:我们这边每天凌晨1点用定时任务刷数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMController.ExportExcel(System.String,System.String)">
+            <summary>
+            导出下载Excel文件
+            </summary>
+            <remark>
+            参数实例
+            JsonString:[{'id':1,'name':'hjw','age':18},{'id':1,'name':'hjw','age':18},{'id':1,'name':'hjw','age':18},{'id':1,'name':'hjw','age':18}]
+            HeaderString:id,name,age
+            </remark>
+            <param name="JsonString">导入Excel的json字符串例：JsonString:[{'id':1,'name':'hjw','age':18},{'id':1,'name':'hjw','age':18},{'id':1,'name':'hjw','age':18},{'id':1,'name':'hjw','age':18}]</param>
+            <param name="HeaderString">列名的数组例：id,name,age</param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMController.GetSchemaInfoByDoc(System.Object)">
+            <summary>
+            根据条件获取医生排班列表PRC_OutpDoctorQueryByDoc 1 是根据医生id查 排班  2是根据排班查号源
+            </summary>
+            <remarks>
+            >参数实例
+            {
+             "doctorId":"医生编号",
+             "type":"业务id号 1 是根据医生id查 排班  2是根据排班查号源",
+             "date":"默认空就好"
+             }
+            </remarks>
+            <param name="dy">请求正文</param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMController.QueryInPrepayInfo(System.Object)">
+            <summary>
+            查询住院预交金余额PRC_QUERYPREPAY 1、查询预交金余额2、查询预交金记录
+            </summary>
+            <remarks>
+            >请求实例
+            {
+            "idCardNo":"身份证号",
+            "name":"姓名",
+            "hospitalNum":"住院号",
+            "phone":"电话",
+            "start":"",
+            "end":"",
+            "type":"业务Id 1、查询预交金余额2、查询预交金记录",
+            "Page":"2",
+            "pageSize":"10"
+            }
+            </remarks>
+            <param name="dy">请求正文</param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMController.QueryRegInfo(System.Object)">
+            <summary>
+            出诊变更信息查询 PRC_REGISTERCHANGQUERY 
+            </summary>
+            <remarks>
+            >参数实例 
+            {
+             "doctorId":"医生编号",
+             "schedulingDate":"排班时间",
+             "phone":"电话",可为空
+             "timeFrame":"时间段类型",
+             "department":"科室id",
+             "isRefundRegister":"1 正常  0退号",
+             "type":"业务Id 1 是 返回布尔 --2 是 返回list"
+             }
+            </remarks>
+            <param name="dy">请求正文</param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMController.QueryInMainInfo(System.Object)">
+            <summary>
+            获取住院信息 1、检验信息接口 2、获取住院信息 PRC_QUERYINMAININFO
+            </summary>
+            <remarks>
+            >参数实例 
+            {
+             "idCardNo":"身份证号"，
+             "hospitalNum":"住院号"
+             "patientName":"病人姓名",
+             "phone":"病人电话",
+             "type":"业务Id 1、检验信息接口 2、获取住院信息 "
+             }
+            </remarks>
+            <param name="dy">请求正文</param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMController.GetTotalByDate(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            H对账账单下载的接口  biztype 1 查询对账账单详细信息PRC_GETTOTALBYDateNew
+            </summary>
+            <param name="date">查询时间</param>
+            <param name="type">1 查询对账账单详细信息</param>
+            <param name="page">第几页</param>
+            <param name="pageNum">行数</param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMController.UpdateSql(System.String)">
+            <summary>
+            切换数据库的方法
+            </summary>
+        </member>
+        <member name="M:HISInterface.Controllers.COMtestController.Get">
+            <summary>
+            测试api
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMtestController.getDoctorScheduling(System.Object)">
+            <summary>
+            获取科室的医生排班情况PRC_OutpDoctorQuery
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "deptId":"科室id",
+                 "date":"时间",
+                 "hospitalId":""
+             }
+            </remarks>
+            <param name="Obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMtestController.getDoctorAppointmentOrders(System.Object)">
+            <summary>
+            获得医生某天排班序号PRC_OutpDoctorQueryBySortId
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "shemaId":"排班id"
+             }
+            </remarks>
+            <param name="Obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMtestController.getAllDeptRoom">
+            <summary>
+            获取医院科目列表以及科室PRC_OutpRegisterDeptQuery
+            PRC_OutpRegisterDeptQuery
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMtestController.getHospitalItemList(System.Object)">
+            <summary>
+            缴费查询getHospitalItemList
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "appointmentId":"门诊流水号",
+                 "bizType":"",
+                 "status":"状态"
+             }
+            </remarks>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMtestController.QueryZBInfoByDate(System.Object)">
+            <summary>
+            国家绩效考核指标查询接口
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "date":"查询时间"
+             }
+            </remarks>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMtestController.QueryInMainNum">
+            <summary>
+            住院人数统计
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMtestController.QueryRegisterNum">
+            <summary>
+            门诊挂号人数统计
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMtestController.getHospitalListing(System.Object)">
+            <summary>
+            清单查询GetQDForDate
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "hospitalNo":"门诊流水号",
+                 "type":"业务类别",
+                 "patientName":"患者姓名",
+                 "date":"查询时间"
+             }
+            </remarks>
+            <param name="Obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMtestController.QueryRegStatus(System.Object)">
+            <summary>
+            挂号看诊状态查询接口QueryRegStatus
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "CardNo":"患者卡号",
+             }
+            </remarks>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMtestController.queryPatientInfoByHospitalNo(System.Object)">
+            <summary>
+            住院患者基本信息查询接口
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "hospitalNo":"患者卡号",
+                 "type":"1 省直医院"
+             }
+            </remarks>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMtestController.getDoctorByWL15(System.Object)">
+            <summary>
+            获取科室未来15天的医生排班情况PRC_DoctorQueryToWL15
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "deptId":"科室id",
+                 "hospitalId":"医院id默认1"
+             }
+            </remarks>
+            <param name="Obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMtestController.QueryEinvoiceBill(System.Object)">
+            <summary>
+            挂号订单查询
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "patientId":"门诊卡号",
+                 "begin":"开始时间",
+                 "end":"结束时间"
+             }
+            </remarks>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMtestController.GetSmsInfo(System.Object)">
+            <summary>
+            手机短信接口
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "phone":"电话号码",
+                 "content":"短信内容"
+             }
+            </remarks>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMtestController.GetQRImage(System.String)">
+            <summary>
+            获取扫码支付二维码
+            </summary>
+            <param name="ClinicNo">门诊流水号</param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMtestController.GetRegOrderInfo(System.Object)">
+            <summary>
+            挂号订单查询PRC_REGORDERQUERY
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "registerNo":"门诊流水号",
+                "patientName":"患者姓名",
+                "Status":"交易状态 1 正交易 2 负交易",
+                "doctorName":"医生名称",
+                 "startTime":"开始时间",
+                "endTime":"结束时间",
+                "Page":"页数",
+                "pageSize":"每页行数"
+             }
+            </remarks>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMtestController.getHospitalItemListByDoctor(System.Object)">
+            <summary>
+            根据医生选择缴费查询PRC_GetHosItemListByDoc
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "recipeNo":"处方号",
+                "patientName":"患者姓名",
+                "Status":"缴费状态1 已缴费 0 待缴费 ",
+                "doctorName":"医生名称",
+                 "startTime":"开始时间",
+                "endTime":"结束时间"
+             }
+            </remarks>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMtestController.getHosItemDetail(System.String)">
+            <summary>
+            缴费明细查询PRC_GetHosItemDetail
+            </summary>
+            <param name="orderNo">订单号RecipeNo</param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMtestController.getHosItemNumList(System.String,System.String)">
+            <summary>
+            收入金额订单数量接口PRC_GetTotal
+            </summary>
+            <param name="start">开始时间</param>
+            <param name="end">结束时间</param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMtestController.getHosItemNumListByType(System.Int32)">
+            <summary>
+            交易金额走势图接口PRC_GetTotalByDate
+            </summary>
+            <param name="Type">查询类别1 查询 本月  2 查询本年</param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMtestController.getHosItemNumListByYW(System.Int32)">
+            <summary>
+            各业务交易金额接口PRC_GetTotalByType
+            </summary>
+            <param name="Type">查询类别1 查询 本月  2 查询本年</param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMtestController.GetyesterdayTotal">
+            <summary>
+            HIS账单接口PRC_GetyesterdayTotal(查询当天日期的前一天数据)------  备注:我们这边每天凌晨1点用定时任务刷数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMtestController.ExportExcel(System.String,System.String)">
+            <summary>
+            导出下载Excel文件
+            </summary>
+            <remark>
+            参数实例
+            JsonString:[{'id':1,'name':'hjw','age':18},{'id':1,'name':'hjw','age':18},{'id':1,'name':'hjw','age':18},{'id':1,'name':'hjw','age':18}]
+            HeaderString:id,name,age
+            </remark>
+            <param name="JsonString">导入Excel的json字符串例：JsonString:[{'id':1,'name':'hjw','age':18},{'id':1,'name':'hjw','age':18},{'id':1,'name':'hjw','age':18},{'id':1,'name':'hjw','age':18}]</param>
+            <param name="HeaderString">列名的数组例：id,name,age</param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMtestController.GetSchemaInfoByDoc(System.Object)">
+            <summary>
+            根据条件获取医生排班列表PRC_OutpDoctorQueryByDoc 1 是根据医生id查 排班  2是根据排班查号源
+            </summary>
+            <remarks>
+            >参数实例
+            {
+             "doctorId":"医生编号",
+             "type":"业务id号 1 是根据医生id查 排班  2是根据排班查号源",
+             "date":"默认空就好"
+             }
+            </remarks>
+            <param name="dy">请求正文</param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMtestController.QueryInPrepayInfo(System.Object)">
+            <summary>
+            查询住院预交金余额PRC_QUERYPREPAY 1、查询预交金余额2、查询预交金记录
+            </summary>
+            <remarks>
+            >请求实例
+            {
+            "idCardNo":"身份证号",
+            "hospitalNum":"住院号",
+            "phone":"电话",
+            "start":"",
+            "end":"",
+            "type":"业务Id 1、查询预交金余额2、查询预交金记录",
+            "Page":"2",
+            "pageSize":"10"
+            }
+            </remarks>
+            <param name="dy">请求正文</param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMtestController.QueryRegInfo(System.Object)">
+            <summary>
+            出诊变更信息查询 PRC_REGISTERCHANGQUERY 
+            </summary>
+            <remarks>
+            >参数实例 
+            {
+             "doctorId":"医生编号",
+             "schedulingDate":"排班时间",
+             "phone":"电话",可为空
+             "timeFrame":"时间段类型",
+             "department":"科室id",
+             "isRefundRegister":"1 正常  0退号",
+             "type":"业务Id 1 是 返回布尔 --2 是 返回list"
+             }
+            </remarks>
+            <param name="dy">请求正文</param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMtestController.QueryInMainInfo(System.Object)">
+            <summary>
+            获取住院信息 1、检验信息接口 2、获取住院信息 PRC_QUERYINMAININFO
+            </summary>
+            <remarks>
+            >参数实例 
+            {
+             "idCardNo":"身份证号"，
+             "hospitalNum":"住院号"
+             "patientName":"病人姓名",
+             "phone":"病人电话",
+             "type":"业务Id 1、检验信息接口 2、获取住院信息 "
+             }
+            </remarks>
+            <param name="dy">请求正文</param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMtestController.GetTotalByDate(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            H对账账单下载的接口  biztype 1 查询对账账单详细信息PRC_GETTOTALBYDateNew
+            </summary>
+            <param name="date">查询时间</param>
+            <param name="type">1 查询对账账单详细信息</param>
+            <param name="page">第几页</param>
+            <param name="pageNum">行数</param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMtestController.UpdateSql(System.String)">
+            <summary>
+            切换数据库的方法
+            </summary>
+        </member>
+        <member name="M:HISInterface.Controllers.IPBController.Get">
+            <summary>
+            测试api
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.IPBController.queryInspectionReport(System.Object)">
+            <summary>
+            查询检查报头
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "cardNo":"门诊卡号"
+             }
+            </remarks>
+            <param name="dy"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.IPBController.queryInspectionReportDetails(System.Object)">
+            <summary>
+            检查详情查询
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "id":"检查id",
+                 "iswsw":"是否微生物 1 是 0否"
+             }
+            </remarks>
+            <param name="dy"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.IPBController.queryMedicalReport(System.Object)">
+            <summary>
+            查询检验报告
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "cardNo":"门诊卡号"
+             }
+            </remarks>
+            <param name="dy"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.IPBController.PayInPrepayCost(System.Object)">
+            <summary>
+            住院预交金收取接口PRC_InPrepayPayedConfirm
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "InpatientNo":"住院流水号",
+                 "IdCard":"身份证",
+                 "TransNo":"交易流水",
+                 "YJCost":"预交金额",
+                 "YJTime":"预交时间",
+                 "PayMode":"支付方式"
+             }
+            </remarks>
+            <param name="dy"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.IPBController.UpdateSql(System.String)">
+            <summary>
+            切换数据库的方法
+            </summary>
+            <param name="SqlType"></param>
+        </member>
+        <member name="M:HISInterface.Controllers.IPBtesttestController.Get">
+            <summary>
+            测试api
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.IPBtesttestController.queryInspectionReport(System.Object)">
+            <summary>
+            查询检查报头
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "cardNo":"门诊卡号"
+             }
+            </remarks>
+            <param name="dy"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.IPBtesttestController.queryInspectionReportDetails(System.Object)">
+            <summary>
+            检查详情查询
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "id":"检查id",
+                 "iswsw":"是否微生物 1 是 0否"
+             }
+            </remarks>
+            <param name="dy"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.IPBtesttestController.queryMedicalReport(System.Object)">
+            <summary>
+            查询检验报告
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "cardNo":"门诊卡号"
+             }
+            </remarks>
+            <param name="dy"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.IPBtesttestController.PayInPrepayCost(System.Object)">
+            <summary>
+            住院预交金收取接口PRC_InPrepayPayedConfirm
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "InpatientNo":"住院流水号",
+                 "IdCard":"身份证",
+                 "TransNo":"交易流水",
+                 "YJCost":"预交金额",
+                 "YJTime":"预交时间",
+                 "PayMode":"支付方式"
+             }
+            </remarks>
+            <param name="dy"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.IPBtesttestController.UpdateSql(System.String)">
+            <summary>
+            切换数据库的方法
+            </summary>
+            <param name="SqlType"></param>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBController.test">
+            <summary>
+            用于测试
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBController.registCard(System.Object)">
+            <summary>
+            注册就诊卡prc_outppatmedcardsell
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "idCardNo":"身份证",
+                 "patientName":"患者姓名",
+                 "sex":"性别",
+                 "birthday":"生日",
+                 "address":"住址",
+                 "phone":"电话"
+             }
+            </remarks>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBController.bindCard(System.Object)">
+            <summary>
+            绑定就诊卡PRC_OutpPatMedCardCheck
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "cardType":"卡类别",
+                 "cardWord":"卡号"
+             }
+            </remarks>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBController.appointment(System.Object)">
+            <summary>
+            锁号的接口PRC_OutpRegisterLock
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "patientId":"门诊卡号",
+                 "appointmentType":"",
+                 "shemaId":"排班id",
+                 "poolId":"号源id",
+                 "doctorId":"医生id",
+                 "deptName":"科室",
+                 "appointmentOrder":"",
+                 "lockTime":"锁号时间",
+                 "lockState":"锁号状态"
+             }
+            </remarks>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBController.updateAppointmentStatus(System.Object)">
+            <summary>
+            挂号确认的接口PRC_OutpRegisterConfirm
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "appointmentId":"门诊卡号",
+                 "appointmentStatus":"",
+                 "payStatus":"支付状态",
+                 "total":"挂号总金额",
+                 "payType":"支付方式"
+             }
+            </remarks>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBController.updateBillStatus(System.Object)">
+            <summary>
+            门诊缴费操作PRC_OutpBillsPayedConfirm
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "billId":"门诊流水号",
+                 "OrderNo":"订单号可进行多个拼接  例如 1111|2222|3333",
+                 "status":"支付状态",
+                 "billType":"",
+                 "payType":"支付方式",
+                 "ZFAmount":"自费金额 （结算的总金额）",
+                 "YBZHAmount":"医保账户支付金额（由于没有医保支付直接给0）",
+                 "YBTCAmount":"医保统筹支付金额（由于没有医保支付直接给0）",
+             }
+            </remarks>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBController.registeredBack(System.Object)">
+            <summary>
+            挂号退号PRC_OutpRegisterCancel
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "tiket_no":"门诊流水号",
+             }
+            </remarks>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBController.GetAddRegister(System.Object)">
+            <summary>
+            加号查询PRC_RegisterAddQuery
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "CardNo":"门诊卡号",
+             }
+            </remarks>
+            <param name="dy"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBController.AddRegisterConfirm(System.Object)">
+            <summary>
+            加号确认接口PRC_RegisterAddConfirm
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "appointmentId":"门诊卡号",
+                 "appointmentStatus":"",
+                 "payStatus":"支付状态",
+                 "total":"挂号总金额",
+                 "payType":"支付方式"
+             }
+            </remarks>
+            <param name="dy"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBController.SMAddQuery(System.Object)">
+            <summary>
+            扫码加号查询PRC_RegisterSMAddQuery
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "doctorId":"医生id",
+             }
+            </remarks>
+            <param name="dy"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBController.SMRegister(System.Object)">
+            <summary>
+            扫码挂号PRC_OutpRegisterSMAdd
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "departId":"科室id",
+                 "doctorId":"医生id",
+                 "RegLevel":"挂号级别",
+                 "CardNo":"门诊卡号",
+                 "payStatus":"支付状态",
+                 "payType":"支付方式",
+             }
+            </remarks>
+            <param name="dy"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBController.sendOtherTypeRecord(System.Object)">
+            <summary>
+            其他费用缴费接口PRC_OtherFeePayedConfirm
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "userId":"微信用户id",
+                 "phone":"电话",
+                 "hospitalId":"",
+                 "deptId":"科室id",
+                 "projectType":"其他费用类别",
+                 "projectPrice":"金额",
+                 "payStatus":"支付状态",
+                 "payType":"支付方式",
+                 "payment":"",
+                 "outTradeNo":"",
+                 "wxTradeNo":"微信支付id",
+                 "createTime":"创建时间",
+                 "payTime":"支付时间",
+             }
+            </remarks>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBController.UpdatePatientInfo(System.Object)">
+            <summary>
+            修改患者基本信息接口PRC_UpdatePatientInfo
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "CardNo":"门诊卡号",
+                 "name":"姓名",
+                 "IdCard":"身份证",
+                 "phone":"电话",
+                 "address":"住址"
+             }
+            </remarks>
+            <param name="dy"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBController.ApplyCheck(System.Object)">
+            <summary>
+            预约检查新型冠状核酸检测PRC_CHECKITEM_APPLY
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "CardNo":"门诊卡号",
+                 "Items":["","",""],项目编号
+                 "peopleType":"人群类别",
+                 "date":"时间"
+             }
+            </remarks>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBController.UpdateSql(System.String)">
+            <summary>
+            切换数据库的方法
+            </summary>
+            <param name="SqlType"></param>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBtestController.test">
+            <summary>
+            用于测试
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBtestController.registCard(System.Object)">
+            <summary>
+            注册就诊卡prc_outppatmedcardsell
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "idCardNo":"身份证",
+                 "patientName":"患者姓名",
+                 "sex":"性别",
+                 "birthday":"生日",
+                 "address":"住址",
+                 "phone":"电话"
+             }
+            </remarks>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBtestController.bindCard(System.Object)">
+            <summary>
+            绑定就诊卡PRC_OutpPatMedCardCheck
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "cardType":"卡类别",
+                 "cardWord":"卡号"
+             }
+            </remarks>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBtestController.appointment(System.Object)">
+            <summary>
+            锁号的接口PRC_OutpRegisterLock
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "patientId":"门诊卡号",
+                 "appointmentType":"",
+                 "shemaId":"排班id",
+                 "poolId":"号源id",
+                 "doctorId":"医生id",
+                 "deptName":"科室",
+                 "appointmentOrder":"",
+                 "lockTime":"锁号时间",
+                 "lockState":"锁号状态"
+             }
+            </remarks>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBtestController.updateAppointmentStatus(System.Object)">
+            <summary>
+            挂号确认的接口PRC_OutpRegisterConfirm
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "appointmentId":"门诊卡号",
+                 "appointmentStatus":"",
+                 "payStatus":"支付状态",
+                 "total":"挂号总金额",
+                 "payType":"支付方式"
+             }
+            </remarks>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBtestController.updateBillStatus(System.Object)">
+            <summary>
+            门诊缴费操作PRC_OutpBillsPayedConfirm
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "billId":"门诊流水号",
+                 "OrderNo":"订单号可进行多个拼接  例如 1111|2222|3333",
+                 "status":"支付状态",
+                 "billType":"",
+                 "payType":"支付方式",
+                 "ZFAmount":"自费金额 （结算的总金额）",
+                 "YBZHAmount":"医保账户支付金额（由于没有医保支付直接给0）",
+                 "YBTCAmount":"医保统筹支付金额（由于没有医保支付直接给0）",
+             }
+            </remarks>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBtestController.registeredBack(System.Object)">
+            <summary>
+            挂号退号PRC_OutpRegisterCancel
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "tiket_no":"门诊流水号",
+             }
+            </remarks>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBtestController.GetAddRegister(System.Object)">
+            <summary>
+            加号查询PRC_RegisterAddQuery
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "CardNo":"门诊卡号",
+             }
+            </remarks>
+            <param name="dy"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBtestController.AddRegisterConfirm(System.Object)">
+            <summary>
+            加号确认接口PRC_RegisterAddConfirm
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "appointmentId":"门诊卡号",
+                 "appointmentStatus":"",
+                 "payStatus":"支付状态",
+                 "total":"挂号总金额",
+                 "payType":"支付方式"
+             }
+            </remarks>
+            <param name="dy"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBtestController.SMAddQuery(System.Object)">
+            <summary>
+            扫码加号查询PRC_RegisterSMAddQuery
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "doctorId":"医生id",
+             }
+            </remarks>
+            <param name="dy"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBtestController.SMRegister(System.Object)">
+            <summary>
+            扫码挂号PRC_OutpRegisterSMAdd
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "departId":"科室id",
+                 "doctorId":"医生id",
+                 "RegLevel":"挂号级别",
+                 "CardNo":"门诊卡号",
+                 "payStatus":"支付状态",
+                 "payType":"支付方式",
+             }
+            </remarks>
+            <param name="dy"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBtestController.sendOtherTypeRecord(System.Object)">
+            <summary>
+            其他费用缴费接口
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "userId":"微信用户id",
+                 "phone":"电话",
+                 "hospitalId":"",
+                 "deptId":"科室id",
+                 "projectType":"其他费用类别",
+                 "projectPrice":"金额",
+                 "payStatus":"支付状态",
+                 "payType":"支付方式",
+                 "payment":"",
+                 "outTradeNo":"",
+                 "wxTradeNo":"微信支付id",
+                 "createTime":"创建时间",
+                 "payTime":"支付时间",
+             }
+            </remarks>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBtestController.UpdatePatientInfo(System.Object)">
+            <summary>
+            修改患者基本信息接口
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "CardNo":"门诊卡号",
+                 "name":"姓名",
+                 "IdCard":"身份证",
+                 "phone":"电话",
+                 "address":"住址"
+             }
+            </remarks>
+            <param name="dy"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBtestController.ApplyCheck(System.Object)">
+            <summary>
+            预约检查新型冠状核酸检测PRC_CHECKITEM_APPLY
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "CardNo":"门诊卡号",
+                 "Items":["","",""],项目编号
+                 "peopleType":"人群类别",
+                 "date":"时间"
+             }
+            </remarks>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBtestController.UpdateSql(System.String)">
+            <summary>
+            切换数据库的方法
+            </summary>
+            <param name="SqlType"></param>
+        </member>
+        <member name="M:HISInterface.Logic.Functions.GetAccessToken">
+            <summary>
+            获取access_token
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.Functions.CreateExcelFromList(System.String,System.String)">
+            <summary>
+            下载Excel的方法
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="dataList">数据</param>
+            <param name="headers">表头</param>
+            <returns></returns>
+        </member>
+        <member name="T:HISInterface.Logic.Methods">
+            <summary>
+            ado.net 方法
+            </summary>
+        </member>
+        <member name="M:HISInterface.Logic.Methods.SqlQuery(AbpvNextEntityFrameworkCoreForOracle.AbpvNextHISInterfaceDbContext,System.String,Oracle.ManagedDataAccess.Client.OracleParameter[])">
+            <summary>
+            调用存储过程获取方法
+            </summary>
+            <param name="db"></param>
+            <param name="spName"></param>
+            <param name="paramsters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.Methods.SqlQuery(AbpvNextEntityFrameworkCoreForOracle.AbpvNextHISInterfaceDbContext,System.String)">
+            <summary>
+            获取查询
+            </summary>
+            <param name="db"></param>
+            <param name="sql"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.Methods.ReturnOracleResult(System.Collections.Generic.List{Oracle.ManagedDataAccess.Client.OracleParameter},System.String)">
+            <summary>
+            查询返回一个字段
+            </summary>
+            <param name="parems"></param>
+            <param name="Name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.Methods.dynamicToJObject(System.Object)">
+            <summary>
+            dynamic转jobject
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.Methods.getStringToT``1(System.String)">
+            <summary>
+            string转T
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.Methods.QuerySql(AbpvNextEntityFrameworkCoreForOracle.AbpvNextHISInterfaceDbContext,System.String)">
+            <summary>
+            查询sql返回datatable
+            </summary>
+            <param name="db"></param>
+            <param name="sql"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.Methods.GetInput(System.String,System.Object)">
+            <summary>
+            获得入参
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.Methods.GetInput(System.String,Oracle.ManagedDataAccess.Client.OracleDbType,System.Object)">
+            <summary>
+            获得入参
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.Methods.GetParameterByType(Oracle.ManagedDataAccess.Client.OracleDbType,System.String)">
+            <summary>
+            根据oracle的类型进行改变对应的类型
+            </summary>
+            <param name="db"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.Methods.GetOutput(System.String,Oracle.ManagedDataAccess.Client.OracleDbType,System.Int32)">
+            <summary>
+            获得出参
+            </summary>
+            <param name="name"></param>
+            <param name="dbType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.Methods.getJObject(System.Data.DataSet)">
+            <summary>
+            将dataset数据集转换成json对象
+            </summary>
+            <param name="ds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.Methods.getJObject(System.Data.DataTable)">
+            <summary>
+            将datatable数据集转换成json对象
+            </summary>
+            <param name="ds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.Methods.GetResult(System.Collections.Generic.List{Oracle.ManagedDataAccess.Client.OracleParameter},System.Data.DataSet,System.String)">
+            <summary>
+            获取json返回得到的json数据
+            </summary>
+            <param name="parems"></param>
+            <param name="ds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.Methods.GetResult(System.Collections.Generic.List{Oracle.ManagedDataAccess.Client.OracleParameter},System.Data.DataSet,System.Int32,System.Int32,System.String)">
+            <summary>
+            分页返回
+            </summary>
+            <param name="parems">参数</param>
+            <param name="ds">数据集</param>
+            <param name="Page">第几行</param>
+            <param name="PageNum">页行数</param>
+            <param name="ErrName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.Methods.GetResultAndHaveSon(System.Collections.Generic.List{Oracle.ManagedDataAccess.Client.OracleParameter},System.Data.DataSet)">
+            <summary>
+            获取json返回得到的json数据
+            </summary>
+            <param name="parems"></param>
+            <param name="ds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.Methods.getSMSPost(System.String,System.String)">
+            <summary>
+            发送短信
+            </summary>
+            <param name="phone"></param>
+            <param name="content"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.SqlMethods.GetHISDBCSK(AbpvNextEntityFrameworkCoreForOracle.AbpvNextHISInterfaceDbContext)">
+            <summary>
+            连接HIS数据库测试库
+            </summary>
+            <param name="dB"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.SqlMethods.GetHISDBCSK2(AbpvNextEntityFrameworkCoreForOracle.AbpvNextHISInterfaceDbContext)">
+            <summary>
+            连接HIS数据库测试库
+            </summary>
+            <param name="dB"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.SqlMethods.GetHISDBZSK(AbpvNextEntityFrameworkCoreForOracle.AbpvNextHISInterfaceDbContext)">
+            <summary>
+            连接HIS数据库正式库
+            </summary>
+            <param name="dB"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.SqlMethods.GetLISDB(AbpvNextEntityFrameworkCoreForOracle.AbpvNextHISInterfaceDbContext)">
+            <summary>
+            连接LIS数据库
+            </summary>
+            <param name="dB"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.SqlMethods.GetPacsDB(AbpvNextEntityFrameworkCoreForOracle.AbpvNextHISInterfaceDbContext)">
+            <summary>
+            连接Pacs数据库
+            </summary>
+            <param name="dB"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
