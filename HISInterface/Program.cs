@@ -16,6 +16,7 @@ namespace HISInterface
       
         public static void Main(string[] args)
         {
+            Console.WriteLine("Œ“ «≤‚ ‘");
             CreateHostBuilder(args).Build().Run();
         }
 
