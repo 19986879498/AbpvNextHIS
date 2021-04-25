@@ -12,13 +12,14 @@ namespace AbpvNext.Application.HISInterface.DBFactory
 {
    public class LoggerService:ILoggerService
     {
-        private  ILog logger;
+        private readonly ILog logger;
+
         /// <summary>
         /// 配置log4net
         /// </summary>
-        public LoggerService()
-        {;
-            this.logger = LogManager.GetLogger(AbpvNextApplicationModule.repository.Name, typeof(LoggerService));
+        public LoggerService(ILog logger)
+        {
+            this.logger = logger;
         }
 
         /// <summary>

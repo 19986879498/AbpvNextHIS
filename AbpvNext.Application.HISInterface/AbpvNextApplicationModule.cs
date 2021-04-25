@@ -18,32 +18,32 @@ namespace AbpvNext.Application.HISInterface
         typeof(AbpAutoMapperModule),
         typeof(AbpvNextEntityFrameworkCoreForOracleModule)
         )]
-    public class AbpvNextApplicationModule:AbpModule
+    public class AbpvNextApplicationModule : AbpModule
     {
         //log4net日志
         public static ILoggerRepository repository { get; set; }
         public AbpvNextApplicationModule()
         {
-            //加载log4net日志配置文件
-            repository = LogManager.CreateRepository("NETCoreRepository");
-            XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
+            ////加载log4net日志配置文件
+            //repository = LogManager.CreateRepository("NETCoreRepository");
+            //XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
         }
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
             //注入AutoMapper
-            Configure<AbpAutoMapperOptions>(opt => {
+            Configure<AbpAutoMapperOptions>(opt =>
+            {
                 opt.AddProfile<AbpvNextApplicationProfile>();
             });
-            Configure<ILog>(opt =>
-            {
-
-            });
+            repository = LogManager.CreateRepository("NETCoreRepository");
+            XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
+            ILog opt = LogManager.GetLogger(repository.Name, typeof(LoggerService));
             //依赖注入
             var services = context.Services;
             services.AddTransient<ICheckSqlConn, CheckSqlConn>();
             services.AddTransient<IFunService, FunService>();
             services.AddTransient<IZHYYDbMethods, ZHYYDbMethods>();
-            services.AddTransient<ILoggerService, LoggerService>();
+            services.AddTransient<ILoggerService, LoggerService>(x => new LoggerService(opt));
             base.ConfigureServices(context);
         }
     }
