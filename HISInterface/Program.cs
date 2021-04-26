@@ -16,7 +16,6 @@ namespace HISInterface
       
         public static void Main(string[] args)
         {
-            Console.WriteLine("我是测试");
             CreateHostBuilder(args).Build().Run();
         }
 
