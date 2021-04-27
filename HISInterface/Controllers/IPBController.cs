@@ -29,12 +29,14 @@ namespace HISInterface.Controllers
     {
         private readonly ICheckSqlConn conn;
         private readonly IZHYYDbMethods zhyyservice;
+        private readonly ILoggerService logger;
 
-        public IPBController(AbpvNextHISInterfaceDbContext dB,IConfiguration configuration, ICheckSqlConn conn,IZHYYDbMethods zhyyservice)
+        public IPBController(AbpvNextHISInterfaceDbContext dB,IConfiguration configuration, ICheckSqlConn conn,IZHYYDbMethods zhyyservice, ILoggerService logger)
         {
             this.db = dB;
             this.conn = conn;
             this.zhyyservice = zhyyservice;
+            this.logger = logger;
         }
 
         public AbpvNextHISInterfaceDbContext db { get; set; }
