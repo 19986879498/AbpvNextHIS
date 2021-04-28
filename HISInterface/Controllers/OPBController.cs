@@ -30,12 +30,14 @@ namespace HISInterface.Controllers
     public class OPBController : ControllerBase
     {
         private readonly ICheckSqlConn conn;
+        private readonly ILoggerService logger;
 
-        public OPBController(AbpvNextHISInterfaceDbContext db, IConfiguration configuration, ICheckSqlConn conn)
+        public OPBController(AbpvNextHISInterfaceDbContext db, IConfiguration configuration, ICheckSqlConn conn, ILoggerService logger)
         {
             this.db = db;
             this.configuration = configuration;
             this.conn = conn;
+            this.logger = logger;
         }
 
         public AbpvNextHISInterfaceDbContext db { get; set; }
@@ -73,7 +75,8 @@ namespace HISInterface.Controllers
         {
             UpdateSql("HIS");
             JObject j = Methods.dynamicToJObject(dynamic);
-            Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n门诊注册就诊卡的入参" + j.ToString());
+            Console.WriteLine("注册就诊卡请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n门诊注册就诊卡的入参" + j.ToString());
+            this.logger.Info("注册就诊卡请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n门诊注册就诊卡的入参" + j.ToString());
             List<OracleParameter> parems = new List<OracleParameter>();
             #region 赋值oracleParameter
             try
@@ -99,6 +102,7 @@ namespace HISInterface.Controllers
             var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.prc_outppatmedcardsell", parems.ToArray());
             ObjectResult resobj = Methods.GetResult(parems, ds);
             Console.WriteLine("返回数据：\n" + JsonConvert.SerializeObject(resobj.Value));
+            this.logger.Info("返回数据：\n" + JsonConvert.SerializeObject(resobj.Value));
             return resobj;
         }
         #endregion
@@ -123,7 +127,8 @@ namespace HISInterface.Controllers
         {
             UpdateSql("HIS");
             JObject j = Methods.dynamicToJObject(dynamic);
-            Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n绑定就诊卡入参" + j.ToString());
+            Console.WriteLine("绑定就诊卡请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n绑定就诊卡入参" + j.ToString());
+            this.logger.Info("绑定就诊卡请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n绑定就诊卡入参" + j.ToString());
             #region 赋值oracleParameter
             List<OracleParameter> parems = new List<OracleParameter>();
             try
@@ -144,6 +149,7 @@ namespace HISInterface.Controllers
             var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.PRC_OutpPatMedCardCheck", parems.ToArray());
             ObjectResult resobj = Methods.GetResult(parems, ds);
             Console.WriteLine("返回数据：\n" + JsonConvert.SerializeObject(resobj.Value));
+            this.logger.Info("返回数据：\n" + JsonConvert.SerializeObject(resobj.Value));
             //输出参数
             return resobj;
         }
@@ -177,7 +183,8 @@ namespace HISInterface.Controllers
             //更新sql
             this.UpdateSql("HIS");
             JObject j = Methods.dynamicToJObject(dynamic);
-            Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n锁号接口请求数据" + j.ToString());
+            Console.WriteLine("锁号操作请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n锁号接口请求数据" + j.ToString());
+            this.logger.Info("锁号操作请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n锁号接口请求数据" + j.ToString());
             List<OracleParameter> oralist = new List<OracleParameter>();
             #region 赋值参数
             try
@@ -205,6 +212,7 @@ namespace HISInterface.Controllers
             var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.PRC_OutpRegisterLock", oralist.ToArray());
             ObjectResult resobj = Methods.GetResult(oralist, ds);
             Console.WriteLine("返回数据：\n" + JsonConvert.SerializeObject(resobj.Value));
+            this.logger.Info("返回数据：\n" + JsonConvert.SerializeObject(resobj.Value));
             return resobj;
         }
         #endregion
@@ -233,7 +241,8 @@ namespace HISInterface.Controllers
             //更新sql
             this.UpdateSql("HIS");
             JObject j = Methods.dynamicToJObject(dynamic);
-            Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n挂号确认入参" + j.ToString());
+            Console.WriteLine("挂号确认请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n挂号确认入参" + j.ToString());
+            this.logger.Info("挂号确认请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n挂号确认入参" + j.ToString());
             List<OracleParameter> oralist = new List<OracleParameter>();
             #region 绑定存储过程的参数
             try
@@ -258,6 +267,7 @@ namespace HISInterface.Controllers
             st.Stop();
             var time = st.ElapsedMilliseconds;
             Console.WriteLine("返回数据：\n" + JsonConvert.SerializeObject(resobj.Value));
+            this.logger.Info("返回数据：\n" + JsonConvert.SerializeObject(resobj.Value));
             return resobj;
         }
         #endregion
@@ -289,7 +299,8 @@ namespace HISInterface.Controllers
             st.Start();
             this.UpdateSql("his");
             JObject j = Methods.dynamicToJObject(dynamic);
-            Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n门诊缴费的入参" + j.ToString());
+            Console.WriteLine("门诊缴费操作请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n门诊缴费的入参" + j.ToString());
+            this.logger.Info("门诊缴费操作请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n门诊缴费的入参" + j.ToString());
             List<OracleParameter> oralist = new List<OracleParameter>();
             try
             {
@@ -314,6 +325,7 @@ namespace HISInterface.Controllers
             st.Stop();
             var time = st.ElapsedMilliseconds;
             Console.WriteLine("返回数据：\n" + JsonConvert.SerializeObject(obj.Value));
+            this.logger.Info("返回数据：\n" + JsonConvert.SerializeObject(obj.Value));
             return obj;
         }
         #endregion
@@ -335,7 +347,8 @@ namespace HISInterface.Controllers
         {
             this.UpdateSql("his");
             JObject j = Methods.dynamicToJObject(dynamic);
-            Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n门诊挂号退号的入参" + j.ToString());
+            Console.WriteLine("挂号退号请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n门诊挂号退号的入参" + j.ToString());
+            this.logger.Info("挂号退号请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n门诊挂号退号的入参" + j.ToString());
             List<OracleParameter> oralist = new List<OracleParameter>();
             try
             {
@@ -351,6 +364,7 @@ namespace HISInterface.Controllers
             var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.PRC_OutpRegisterCancel", oralist.ToArray());
             ObjectResult obj = Methods.GetResult(oralist, ds);
             Console.WriteLine("返回数据：\n" + JsonConvert.SerializeObject(obj.Value));
+            this.logger.Info("返回数据：\n" + JsonConvert.SerializeObject(obj.Value));
             return obj;
         }
         #endregion
@@ -372,7 +386,8 @@ namespace HISInterface.Controllers
         {
             this.UpdateSql("his");
             JObject j = Methods.dynamicToJObject(dy);
-            Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n加号查询的入参" + j.ToString());
+            Console.WriteLine("加号查询请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n加号查询的入参" + j.ToString());
+            this.logger.Info("加号查询请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n加号查询的入参" + j.ToString());
             List<OracleParameter> oralist = new List<OracleParameter>();
             #region 绑定存储过程的参数
             try
@@ -391,6 +406,7 @@ namespace HISInterface.Controllers
             var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.PRC_RegisterAddQuery", oralist.ToArray());
             ObjectResult resobj = Methods.GetResult(oralist, ds);
             Console.WriteLine("返回数据：\n" + JsonConvert.SerializeObject(resobj.Value));
+            this.logger.Info("返回数据：\n" + JsonConvert.SerializeObject(resobj.Value));
             return resobj;
         }
         #endregion
@@ -417,7 +433,8 @@ namespace HISInterface.Controllers
         {
             this.UpdateSql("his");
             JObject j = Methods.dynamicToJObject(dy);
-            Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n门诊加号确认的入参" + j.ToString());
+            Console.WriteLine("加号确认接口请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n门诊加号确认的入参" + j.ToString());
+            this.logger.Info("加号确认接口请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n门诊加号确认的入参" + j.ToString());
             List<OracleParameter> oralist = new List<OracleParameter>();
             #region 绑定存储过程的参数
             try
@@ -440,6 +457,7 @@ namespace HISInterface.Controllers
             var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.PRC_RegisterAddConfirm", oralist.ToArray());
             ObjectResult resobj = Methods.GetResult(oralist, ds);
             Console.WriteLine("返回数据：\n" + JsonConvert.SerializeObject(resobj.Value));
+            this.logger.Info("返回数据：\n" + JsonConvert.SerializeObject(resobj.Value));
             return resobj;
         }
         #endregion
@@ -463,7 +481,8 @@ namespace HISInterface.Controllers
         {
             this.UpdateSql("his");
             JObject j = Methods.dynamicToJObject(dy);
-            Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n门诊扫码加号查询的入参" + j.ToString());
+            Console.WriteLine("扫码加号查询请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n门诊扫码加号查询的入参" + j.ToString());
+            this.logger.Info("扫码加号查询请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n门诊扫码加号查询的入参" + j.ToString());
             List<OracleParameter> oralist = new List<OracleParameter>();
             #region 绑定存储过程的参数
             try
@@ -482,6 +501,7 @@ namespace HISInterface.Controllers
             var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.PRC_RegisterSMAddQuery", oralist.ToArray());
             ObjectResult resobj = Methods.GetResult(oralist, ds);
             Console.WriteLine("返回数据：\n" + JsonConvert.SerializeObject(resobj.Value));
+            this.logger.Info("返回数据：\n" + JsonConvert.SerializeObject(resobj.Value));
             return resobj;
         }
         #endregion
@@ -508,7 +528,8 @@ namespace HISInterface.Controllers
         {
             this.UpdateSql("his");
             JObject j = Methods.dynamicToJObject(dy);
-            Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n门诊扫码挂号的入参" + j.ToString());
+            Console.WriteLine("扫码挂号请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n门诊扫码挂号的入参" + j.ToString());
+            this.logger.Info("扫码挂号请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n门诊扫码挂号的入参" + j.ToString());
             List<OracleParameter> oralist = new List<OracleParameter>();
             #region 绑定存储过程的参数
             try
@@ -534,6 +555,7 @@ namespace HISInterface.Controllers
             var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.PRC_OutpRegisterSMAdd", oralist.ToArray());
             ObjectResult resobj = Methods.GetResult(oralist, ds);
             Console.WriteLine("返回数据：\n" + JsonConvert.SerializeObject(resobj.Value));
+            this.logger.Info("返回数据：\n" + JsonConvert.SerializeObject(resobj.Value));
             return resobj;
         }
 
@@ -567,7 +589,8 @@ namespace HISInterface.Controllers
             //更新sql
             this.UpdateSql("HIS");
             JObject j = Methods.dynamicToJObject(dynamic);
-            Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n其他费用缴费接口请求数据" + j.ToString());
+            Console.WriteLine("其他费用缴费接口请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n其他费用缴费接口请求数据" + j.ToString());
+            this.logger.Info("其他费用缴费接口请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n其他费用缴费接口请求数据" + j.ToString());
             List<OracleParameter> oralist = new List<OracleParameter>();
             #region 赋值参数
             try
@@ -597,6 +620,7 @@ namespace HISInterface.Controllers
             var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.PRC_OtherFeePayedConfirm", oralist.ToArray());
             ObjectResult resobj = Methods.GetResult(oralist, ds);
             Console.WriteLine("返回数据：\n" + JsonConvert.SerializeObject(resobj.Value));
+            this.logger.Info("返回数据：\n" + JsonConvert.SerializeObject(resobj.Value));
             return resobj;
         }
         #endregion
@@ -622,7 +646,8 @@ namespace HISInterface.Controllers
         {
             this.UpdateSql("his");
             JObject j = Methods.dynamicToJObject(dy);
-            Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n修改患者基本信息接口的入参" + j.ToString());
+            Console.WriteLine("修改患者基本信息接口请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n修改患者基本信息接口的入参" + j.ToString());
+            this.logger.Info("修改患者基本信息接口请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n修改患者基本信息接口的入参" + j.ToString());
             List<OracleParameter> oralist = new List<OracleParameter>();
             #region 绑定存储过程的参数
             try
@@ -645,6 +670,7 @@ namespace HISInterface.Controllers
             var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.PRC_UpdatePatientInfo", oralist.ToArray());
             ObjectResult resobj = Methods.GetResult(oralist, ds);
             Console.WriteLine("返回数据：\n" + JsonConvert.SerializeObject(resobj.Value));
+            this.logger.Info("返回数据：\n" + JsonConvert.SerializeObject(resobj.Value));
             return resobj;
         }
         #endregion
@@ -673,6 +699,7 @@ namespace HISInterface.Controllers
             JObject j = Methods.dynamicToJObject(dynamic);
             string ItemList = string.Empty;
             Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n预约检查新型冠状核酸检测的入参" + j.ToString());
+            this.logger.Info("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n预约检查新型冠状核酸检测的入参" + j.ToString());
             //判断参数的准确性
             if (!j.ContainsKey("CardNO"))
             {
@@ -726,6 +753,7 @@ namespace HISInterface.Controllers
             var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.PRC_CHECKITEM_APPLY", oralist.ToArray());
             ObjectResult obj = Methods.GetResult(oralist, ds, "ErrStr");
             Console.WriteLine("返回数据：\n" + JsonConvert.SerializeObject(obj.Value));
+            this.logger.Info("返回数据：\n" + JsonConvert.SerializeObject(obj.Value));
             return obj;
         }
         #endregion
