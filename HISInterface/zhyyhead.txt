@@ -1,0 +1,316 @@
+﻿CREATE OR REPLACE PACKAGE ZJHIS.PKG_ZHYY_MZ IS
+
+  type cc_cursor is ref cursor;
+
+  --绑卡
+  PROCEDURE PRC_OutpPatMedCardCheck(cardType   IN VARCHAR2,
+                                    cardWord   IN VARCHAR2,
+                                    ReturnCode out integer,
+                                    data       out cc_cursor,
+                                    ErrorMsg   out VARCHAR2);
+
+  --注册就诊卡
+  PROCEDURE PRC_OutpPatMedCardSell(idCardNo    in varchar2,
+                                   patientName IN VARCHAR2,
+                                   sex         IN VARCHAR2,
+                                   birthday    IN VARCHAR2,
+                                   address     IN VARCHAR2,
+                                   phone       IN VARCHAR2,
+                                   mz          in varchar2,
+                                   data        out cc_cursor,
+                                   ReturnCode  out integer,
+                                   ErrorMsg    out VARCHAR2);
+
+  --3.4.2.  医生信息查询
+  PROCEDURE PRC_OutpDoctorQuery(deptId     IN VARCHAR2,
+                                Docdate    IN VARCHAR2,
+                                hospitalId IN VARCHAR2,
+                                ResultSet  out cc_cursor,
+                                ReturnCode out integer,
+                                ErrorMsg   out VARCHAR2);
+
+  --3.4.1.  科室信息查询
+  PROCEDURE PRC_OutpRegisterDeptQuery(ResultSet  out cc_cursor,
+                                      ReturnCode out integer,
+                                      ErrorMsg   out VARCHAR2);
+
+  --获得医生某天排班序号
+  PROCEDURE PRC_OutpDoctorQueryBySortId(shemaId    IN VARCHAR2,
+                                        ResultSet  out cc_cursor,
+                                        ReturnCode out integer,
+                                        ErrorMsg   out VARCHAR2);
+  --挂号占位锁号
+  PROCEDURE PRC_OutpRegisterLock(patientId        IN VARCHAR2, --患者id
+                                 appointmentType  IN VARCHAR2, --appointmentType 挂号类别代码
+                                 shemaId          in VARCHAR2, --排班ID
+                                 poolId           in VARCHAR2, --分时ID
+                                 doctorId         IN VARCHAR2, --doctorId医生id
+                                 deptName         IN VARCHAR2, --deptName科室名称
+                                 appointmentOrder IN VARCHAR2, -- 就诊序号
+                                 appointmentTime  IN date, --就诊时间：2020年6月20日下午
+                                 lockTime         IN date, --锁号时间默认为系统时间
+                                 lockState        in VARCHAR2, --1锁号
+                                 ResultSet        out cc_cursor,
+                                 ReturnCode       out integer,
+                                 ErrorMsg         out VARCHAR2);
+  --加号查询
+  PROCEDURE PRC_RegisterAddQuery(CardNo     IN VARCHAR2,
+                                 ResultSet  out cc_cursor,
+                                 ReturnCode out integer,
+                                 ErrorMsg   out VARCHAR2);
+
+  --加号确认
+  procedure PRC_RegisterAddConfirm(appointmentId     IN VARCHAR2, --预约挂号表的主键
+                                   appointmentStatus IN VARCHAR2,
+                                   payStatus         IN VARCHAR2,
+                                   total             IN number,
+                                   payType           IN VARCHAR2, --支付类型：默认1：微信，2：支付宝3银联
+                                   ResultSet         out cc_cursor,
+                                   ReturnCode        out integer,
+                                   ErrorMsg          out VARCHAR2);
+
+  --挂号确认
+  PROCEDURE PRC_OutpRegisterConfirm(appointmentId     IN VARCHAR2, --预约挂号表的主键
+                                    appointmentStatus IN VARCHAR2,
+                                    payStatus         IN VARCHAR2,
+                                    total             IN number,
+                                    payType           IN VARCHAR2, --支付类型：默认1：微信，2：支付宝3银联
+                                    ResultSet         out cc_cursor,
+                                    ReturnCode        out integer,
+                                    ErrorMsg          out VARCHAR2);
+
+  --扫码挂号查询
+  PROCEDURE PRC_RegisterSMAddQuery(DoctCode   IN VARCHAR2,
+                                   ResultSet  out cc_cursor,
+                                   ReturnCode out integer,
+                                   ErrorMsg   out VARCHAR2);
+
+  --扫码挂号
+
+  PROCEDURE PRC_OutpRegisterSMAdd(DepartCode in varchar2, --科室名称
+                                  DoctorCode in varchar2, --医生编号
+                                  RegLevel   in varchar2, --挂号等级
+                                  CardNo     IN VARCHAR2, --就诊卡号
+                                  payStatus  IN VARCHAR2, --支付状态  已支付 1 ，未支付 0
+                                  payType    IN VARCHAR2, --支付类型：默认1：微信，2：支付宝3银联
+                                  totCost    in number, --挂号费金额
+                                  ResultSet  out cc_cursor,
+                                  ReturnCode out integer,
+                                  ErrorMsg   out VARCHAR2);
+
+  --退号
+  PROCEDURE PRC_OutpRegisterCancel(ClinicNo   in varchar2,
+                                   ReturnSet  out cc_cursor,
+                                   ReturnCode out integer,
+                                   ErrorMsg   out varchar2);
+
+  --3.5.1.  查询缴费单据
+  PROCEDURE getHospitalItemList(appointmentId in varchar2, --挂号单ID
+                                bizType       in varchar2, /*医院项目/各类单据名称枚举*/
+                                status        in varchar2, /*单据状态（检索时使用，查看单据状态枚举）*/
+                                ReturnSet     out cc_cursor,
+                                ReturnCode    out integer,
+                                ErrorMsg      out varchar2);
+
+  --查询清单
+  PROCEDURE GetQDForDate(appointmentId in varchar2, --门诊号  &住院号
+                         bizType       in varchar2, /*医院项目/各类单据名称枚举*/
+                         patientName   in varchar2, /*单据状态（检索时使用，查看单据状态枚举）*/
+                         QueryDate     in varchar2,
+                         ReturnSet     out cc_cursor,
+                         ReturnCode    out integer,
+                         ErrorMsg      out varchar2);
+
+  --查询挂号看诊状态
+  PROCEDURE QueryRegStatus(CardNo     in varchar2,
+                           ReturnSet  out cc_cursor,
+                           ReturnCode out integer,
+                           ErrorMsg   out varchar2);
+
+  PROCEDURE DiagFeeZT(clincNo    IN VARCHAR2,
+                      ReturnCode out integer,
+                      ErrorMsg   out VARCHAR2);
+
+  --3.5.4.  缴费确认支付
+  PROCEDURE PRC_OutpBillsPayedConfirm(billId     in varchar2,
+                                      OrderNo    in varchar2,
+                                      status     in varchar2,
+                                      billType   in varchar2,
+                                      payType    in varchar2, --支付方式默认1：微信，2：支付宝3银联
+                                      ZFAmount   IN NUMBER,
+                                      YBZHAmount IN NUMBER,
+                                      YBTCAmount IN NUMBER,
+                                      ReturnSet  out cc_cursor,
+                                      ReturnCode out integer,
+                                      ErrorMsg   out VARCHAR2);
+
+  --其他费用缴费接口
+  PROCEDURE PRC_OtherFeePayedConfirm(userId       IN VARCHAR2, --微信授权用户id
+                                     phone        in varchar2, --手机号
+                                     hospitalId   IN VARCHAR2, --小程序端医院编号
+                                     deptId       IN VARCHAR2, --科室ID(病历本费需要传科室ID)
+                                     projectType  IN VARCHAR2, --费用类型(21:病历本费,22:病例复印费,23:游泳费)
+                                     projectPrice IN number, --项目费用
+                                     payStatus    IN VARCHAR2, --支付状态(0:待支付，1:支付中，2:已支付，3:退款)
+                                     payType      IN VARCHAR2, --支付方式(1:微信)
+                                     payment      IN VARCHAR2, --支付类型
+                                     outTradeNo   IN VARCHAR2, --商户订单号
+                                     wxTradeNo    IN VARCHAR2, --微信订单号
+                                     createTime   IN date, --创建时间
+                                     payTime      IN date, --支付时间
+                                     ReturnSet    OUT cc_cursor,
+                                     ReturnCode   OUT INTEGER,
+                                     ErrorMsg     out varchar2);
+
+  --住院预交金收取
+  procedure PRC_InPrepayPayedConfirm(InpatientNo in varchar2, --就诊流水号
+                                     IdCard      in varchar2, --身份证号
+                                     TransNo     in varchar2, --平台充值编号
+                                     YJCost      in number, --预交金额
+                                     YJTime      in date, --充值时间
+                                     PayMode     in varchar2, --支付方式
+                                     ReturnSet   out cc_cursor,
+                                     ReturnCode  out integer, --取发票号返回错误信息
+                                     ErrorMsg    out Varchar2);
+
+  --查询住院预交金余额 1、查询预交金余额2、查询预交金记录
+  procedure PRC_QUERYPREPAY(PatientNo   in varchar2,
+                            patientName in varchar2,
+                            IdCard      in varchar2,
+                            Phone       in varchar2,
+                            startTime   in varchar2,
+                            endTime     in varchar2,
+                            bizType     in varchar2,
+                            page        in integer,
+                            pageSize    in integer,
+                            ReturnSet   out cc_cursor,
+                            ReturnCode  out integer,
+                            ErrorMsg    out varchar2,
+                            pageCount   out integer);
+
+  --查询住院信息 bizType 1、住院病历复印邮寄-核验信息接口、2、获取患者住院基本信息
+  procedure PRC_QUERYINMAININFO(PatientNo   in varchar2,
+                                patientName in varchar2,
+                                IdCard      in varchar2,
+                                Phone       in varchar2,
+                                bizType     in varchar2,
+                                ReturnSet   out cc_cursor,
+                                ReturnCode  out integer,
+                                ErrorMsg    out varchar2);
+
+  --修改患者基本信息接口
+  procedure PRC_UpdatePatientInfo(CardNO      IN VARCHAR2,
+                                  patname     IN VARCHAR2,
+                                  IdCard      IN VARCHAR2,
+                                  phone       IN VARCHAR2,
+                                  HomeAddress IN VARCHAR2,
+                                  ReturnCode  OUT INTEGER,
+                                  ReturnSet   OUT cc_cursor,
+                                  ErrorMsg    OUT VARCHAR2);
+
+  --查询未来15天医生的排班信息
+  PROCEDURE PRC_DoctorQueryToWL15(deptId     IN VARCHAR2,
+                                  hospitalId IN VARCHAR2,
+                                  ResultSet  out cc_cursor,
+                                  ReturnCode out integer,
+                                  ErrorMsg   out VARCHAR2);
+
+  --查询电子发票的数据 只查一个月
+  PROCEDURE PRC_QueryEbillInvoiceInfo(PatientId  IN VARCHAR2,
+                                      begindate  in varchar2,
+                                      enddate    in varchar2,
+                                      ResultSet  out cc_cursor,
+                                      ReturnCode out integer,
+                                      ErrorMsg   out VARCHAR2);
+
+  -- 预约检查
+  procedure PRC_CHECKITEM_APPLY(CARD_NO     IN VARCHAR2,
+                                Item_Code   IN VARCHAR2,
+                                People_TYPE IN VARCHAR2,
+                                PRE_DATE    IN VARCHAR2,
+                                ResultSet   OUT cc_cursor,
+                                ErrStr      OUT VARCHAR2,
+                                ReturnCode  OUT INTEGER);
+
+  --查询挂号订单
+  PROCEDURE PRC_REGORDERQUERY(clinic_code in varchar2,
+                              patname     in varchar2,
+                              status      in varchar2,
+                              doctName    in varchar2,
+                              startTime   in varchar2,
+                              endTime     in varchar2,
+                              ReturnSet   out cc_cursor,
+                              ErrorMsg    out varchar2,
+                              ReturnCode  out integer);
+
+  --1 是 出诊变更根据医生查询挂号患者信息dto
+  --2 是 出诊变更根据医生查询挂号患者信息vo
+  procedure PRC_REGISTERCHANGQUERY(DoctID     IN VARCHAR2,
+                                   schemaTime IN VARCHAR2,
+                                   Phone      in varchar2,
+                                   NOONCODE   IN varchar2,
+                                   DEPTID     IN VARCHAR2,
+                                   TRANSTYPE  IN varchar2,
+                                   bizType    in varchar2,
+                                   ResultSet  out cc_cursor,
+                                   ReturnCode out integer,
+                                   ErrorMsg   out VARCHAR2);
+
+  --根据条件获取医生列表
+  PROCEDURE PRC_OutpDoctorQueryByDoc(doctId     IN VARCHAR2,
+                                     bizType    in varchar2,
+                                     Docdate    IN VARCHAR2,
+                                     ResultSet  out cc_cursor,
+                                     ReturnCode out integer,
+                                     ErrorMsg   out VARCHAR2);
+
+  --查询患者缴费信息根据医生
+  PROCEDURE PRC_GetHosItemListByDoc(recipeNo    in varchar2,
+                                    patientName in varchar2,
+                                    Status      in varchar2,
+                                    doctorName  in varchar2,
+                                    startTime   in varchar2,
+                                    endTime     in varchar2,
+                                    ResultSet   out cc_cursor,
+                                    ErrorMsg    out varchar2,
+                                    ReturnCode  out integer);
+
+  --查询缴费明细
+  PROCEDURE PRC_GetHosItemDetail(OrderNo    in varchar2,
+                                 ResultSet  out cc_cursor,
+                                 ErrorMsg   out varchar2,
+                                 ReturnCode out integer);
+
+  --收入金额订单数量接口
+  PROCEDURE PRC_GetTotal(beginDate  in varchar2,
+                         endDate    in varchar2,
+                         ReturnSet  out cc_cursor,
+                         ErrorMsg   out varchar2,
+                         ReturnCode out integer);
+
+  --交易金额走势图接口
+  PROCEDURE PRC_GetTotalByDate(SelType    in integer, --(1代表查询本月,2代表查询今年)
+                               ReturnSet  out cc_cursor,
+                               ErrorMsg   out varchar2,
+                               ReturnCode out integer);
+
+  --各业务交易金额接口
+  PROCEDURE PRC_GetTotalByType(SelType    in integer, --(1代表查询本月,2代表查询今年)
+                               ReturnSet  out cc_cursor,
+                               ErrorMsg   out varchar2,
+                               ReturnCode out integer);
+
+  --HIS账单接口(查询当天日期的前一天数据)------  备注:我们这边每天凌晨1点用定时任务刷数据
+  PROCEDURE PRC_GetyesterdayTotal(ReturnSet  out cc_cursor,
+                                  ErrorMsg   out varchar2,
+                                  ReturnCode out integer);
+
+  --对账账单下载的接口  biztype 1 查询对账账单详细信息
+  procedure PRC_GETTOTALBYDateNew(TotalDate  in varchar2,
+                                  bizType    in varchar2,
+                                  Page       in integer,
+                                  pageSize   in integer,
+                                  ResultSet  out cc_cursor,
+                                  ReturnCode out integer,
+                                  ErrorMsg   out varchar2);
+END PKG_ZHYY_MZ;

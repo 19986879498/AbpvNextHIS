@@ -13,6 +13,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="zhyybody.txt" />
+    <None Remove="zhyyhead.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="zhyybody.txt" />
+    <Compile Include="zhyyhead.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="3.1.4" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.5">
